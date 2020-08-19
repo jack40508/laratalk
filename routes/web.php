@@ -18,8 +18,8 @@ Route::get('/', function () {
 
 Auth::routes();
 
-Route::get('/home', 'HomeController@index');
+Route::resource('/home', 'HomeController');
 
-Route::resource('/messages','MessageController');
+Route::resource('/message','MessageController');
 
 Route::resource('/test','TestController');

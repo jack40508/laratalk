@@ -9,10 +9,17 @@
 
     <title>LaraTalk</title>
 
+    <!-- jQuery CDN -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 
     <!-- Scripts -->
     <script src="{{ asset('js/app.js')}}" defer></script>
     <script src="{{ asset('js/talk.js')}}" defer></script>
+    <script src="{{ asset('js/message.js')}}" defer></script>
+    <meta name="csrf-token" content="{{ csrf_token() }}">
+
+    <!-- Pusher -->
+    <script src="https://js.pusher.com/7.0/pusher.min.js"></script>
 
     <!-- Fonts -->
     <link rel="dns-prefetch" href="//fonts.gstatic.com">
@@ -20,6 +27,9 @@
 
     <!-- Bootstrap Styles -->
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
+
+    <!-- My Css -->
+    <link href="{{ asset('css/message.css') }}" rel="stylesheet">
 
 </head>
 <body>
@@ -80,4 +90,10 @@
         </main>
     </div>
 </body>
+
+<script>
+  var receiver_id = '';
+  var my_id = "{{ Auth::id() }}";
+</script>
+
 </html>

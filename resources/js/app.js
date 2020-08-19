@@ -38,30 +38,15 @@ const app = new Vue({
     },
     methods: {
       addMessage(message) {
-        //add to existing message
-        this.messages.push(message);
-
         //presist to the database
-        axios.post('/messages', message).then(response => {
+        axios.post('/message', message).then(response => {
 
         });
       }
     },
     created(){
-      axios.get('/messages').then(response => {
+      axios.get('/message').then(response => {
         this.messages = response.data;
       });
-
-      Echo.join('chatroom')
-          //.here()
-          //.joining()
-          //.leaving()
-          .listen('MessagePosted', (e) => {
-            console.log('get in');
-          });
-      Echo.private('chatroom')
-        .listen('MessagePosted', (e) => {
-            console.log(e);
-        });
     }
 });

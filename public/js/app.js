@@ -56726,26 +56726,15 @@ var app = new Vue({
   },
   methods: {
     addMessage: function addMessage(message) {
-      //add to existing message
-      this.messages.push(message); //presist to the database
-
-      axios.post('/messages', message).then(function (response) {});
+      //presist to the database
+      axios.post('/message', message).then(function (response) {});
     }
   },
   created: function created() {
     var _this = this;
 
-    axios.get('/messages').then(function (response) {
+    axios.get('/message').then(function (response) {
       _this.messages = response.data;
-    });
-    Echo.join('chatroom') //.here()
-    //.joining()
-    //.leaving()
-    .listen('MessagePosted', function (e) {
-      console.log('get in');
-    });
-    Echo["private"]('chatroom').listen('MessagePosted', function (e) {
-      console.log(e);
     });
   }
 });

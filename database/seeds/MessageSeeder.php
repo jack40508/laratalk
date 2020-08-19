@@ -17,6 +17,14 @@ class MessageSeeder extends Seeder
           'from_id' => '1',
           'to_id' => '2',
           'message' => 'test message',
+          'is_read' => false,
+        ]);
+
+        Message::create([
+          'from_id' => '2',
+          'to_id' => '3',
+          'message' => 'test message2',
+          'is_read' => false,
         ]);
     }
 }

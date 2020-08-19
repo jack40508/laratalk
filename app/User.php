@@ -40,21 +40,10 @@ class User extends Authenticatable
     ];
 
     /*------------------------------------------------------------------------**
-    ** Relation 定義                                                          **
+    ** Relation function 定義                                                          **
     **------------------------------------------------------------------------*/
 
-    public function messages(){
-        return Message::where(function ($query) {
-                $query->where('from',$this->id)
-                      ->orwhere('to',$this->id);
-                    })->get();
-    }
-
-    public function getmessage(){
-        return $this->hasMany(Message::class)->where('to',$this->id);
-    }
-
-    public function sentmessage(){
-        return $this->hasMany(Message::class)->where('from',$this->id);
+    public function unreadMessages($sent_id){
+        return Message::where('to_id',$this->id)->where('from_id',$sent_id)->where('is_read',false)->count();
     }
 }

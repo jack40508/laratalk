@@ -5,9 +5,9 @@ namespace App\Http\Controllers;
 use App\Message\Message;
 use App\Message\MessageRespository;
 use Illuminate\Http\Request;
-use GuzzleHttp\Client;
 use App\Events\MessagePosted;
 use Auth;
+use Pusher\Pusher;
 
 class MessageController extends Controller
 {
@@ -51,21 +51,26 @@ class MessageController extends Controller
         //
         $message = $this->message->sendMessage($request);
 
-        //Get Message from Talk
-        $client = new Client();
-        $res = $client->request('POST', 'https://api.a3rt.recruit-tech.co.jp/talk/v1/smalltalk', [
-            'form_params' => [
-                'apikey' => 'DZZpEiJNTW1sSsQ7B8MkLb2Hk5UJFPj3',
-                'query' => $message->message,
-            ]
-        ]);
+        if($request->receiver_id == 0){
+          $talkmessage = $this->message->getTalkMessage($message);
+          $this->message->postTalkMessage($talkmessage);
+        }
 
-        $result = json_decode($res->getBody()->getContents(), true);
-        $talkmessage = $result['results'][0]['reply'];
+        // pusher
+        $options = array(
+          'cluster' => 'mt1',
+          'useTLS' => true
+        );
 
-        $this->message->getMessage($talkmessage);
+        $pusher = new Pusher(
+          '58eb611363d0e375ea67',
+          '67aa0934798b38d95c38',
+          '1057527',
+          $options
+        );
 
-        event(new MessagePosted($message,Auth::user()));
+        $data = ['from' => Auth::id(), 'to' => $request->receiver_id]; // sending from and to user id when pressed enter
+        $pusher->trigger('message-channel', 'sent-message-event', $data);
     }
 
     /**
