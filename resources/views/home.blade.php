@@ -63,6 +63,7 @@
           @endforeach
         </ul>
       </div>
+      <a class="btn btn-danger btn-reset" href="message/destroyall" role="button">メッセージをリセット</a>
     </div>
     <div class="col-md-8" id="messages">
 

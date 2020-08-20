@@ -20,6 +20,7 @@ Auth::routes();
 
 Route::resource('/home', 'HomeController');
 
+Route::get('message/destroyall','MessageController@destroyAll');
 Route::resource('/message','MessageController');
 
 Route::resource('/test','TestController');

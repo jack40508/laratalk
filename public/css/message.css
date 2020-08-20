@@ -13,7 +13,7 @@ li{
 }
 
 .user-wrapper{
-  height: 600px;
+  height: 70vh;
 }
 
 .user{
@@ -60,7 +60,7 @@ li{
 
 .message-wrapper{
   padding: 10px;
-  height: 536px;
+  height: 70vh;
   background: #eeeeee;
 }
 
@@ -73,18 +73,18 @@ li{
 }
 
 .received, .sent{
-  width: 45%;
+  width: 35%;
   padding: 3px 10px;
   border-radius: 10px;
   margin-top: 10px;
 }
 
 .received{
-  background: #28FF28;
+  background: #FFFFFF;
 }
 
 .sent{
-  background: #3bebff;
+  background: #28FF28;
   float: right;
   text-align: right;
 }
@@ -115,4 +115,37 @@ input[type=text]{
 
 input[type=text]:focus{
   border: 1px solid #aaaaaa;
+}
+
+.btn-message,.btn-reset{
+  width: 100%;
+  padding: 12px 20px;
+  margin: 15px 0 0 0;
+  display: inline-block;
+  border-radius: 4px;
+  box-sizing: border-box;
+  outline: none;
+}
+
+/*scrollbar set*/
+/* width */
+::-webkit-scrollbar {
+  width: 10px;
+}
+
+/* Track */
+::-webkit-scrollbar-track {
+  box-shadow: inset 0 0 5px grey;
+  border-radius: 10px;
+}
+
+/* Handle */
+::-webkit-scrollbar-thumb {
+  background: lightgray;
+  border-radius: 10px;
+}
+
+/* Handle on hover */
+::-webkit-scrollbar-thumb:hover {
+  background: silver;
 }

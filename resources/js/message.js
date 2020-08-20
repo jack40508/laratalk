@@ -54,6 +54,17 @@ $(document).ready(function (){
     });
   });
 
+  //Sent Message by Button
+  $(document).on('click', '.input-text .btn-message', function (e){
+    var message = $('.input-text input').val();
+
+    if(message != '' && receiver_id != ''){
+      $('.input-text input').val('');
+
+      sendMessage(message);
+    }
+  });
+
   //Sent Message by Enter key
   $(document).on('keyup', '.input-text input', function (e){
     var message = $(this).val();
@@ -64,30 +75,35 @@ $(document).ready(function (){
       //clear message text
       $(this).val('');
 
-      var datastr = "receiver_id=" + receiver_id + "&message=" + message;
-      $.ajax({
-        type: "post",
-        url: "message",
-        data: datastr,
-        cache: false,
-        success: function(data){
-
-        },
-        error: function(jqXHR, status, err){
-
-        },
-        complete: function(){
-          scrollToBottomFunc();
-        }
-      })
+      sendMessage(message);
     }
   });
 
   //make a function to scroll down auto
   function scrollToBottomFunc() {
     $('.message-wrapper').animate({
-      scrollTop: $('.message-wrapper').get(0).scrollHeight}, 0.001);
+      scrollTop: $('.message-wrapper').get(0).scrollHeight}, 0.5);
 
     $('.input-text input').focus();
+  }
+
+  //send message function
+  function sendMessage(message){
+    var datastr = "receiver_id=" + receiver_id + "&message=" + message;
+    $.ajax({
+      type: "post",
+      url: "message",
+      data: datastr,
+      cache: false,
+      success: function(data){
+
+      },
+      error: function(jqXHR, status, err){
+
+      },
+      complete: function(){
+        scrollToBottomFunc();
+      }
+    })
   }
 });

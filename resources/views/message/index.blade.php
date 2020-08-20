@@ -13,5 +13,12 @@
 </div>
 
 <div class="input-text">
-  <input type="text" name="message" class="sumbit">
+  <div class="row">
+    <div class="col-md-10">
+      <input type="text" name="message" class="sumbit">
+    </div>
+    <div class="col-md-2">
+      <a class="btn btn-primary btn-message" href="#" role="button">送信</a>
+    </div>
+  </div>
 </div>

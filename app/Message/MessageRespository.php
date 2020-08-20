@@ -81,4 +81,8 @@ class MessageRespository
   public function readMessages($user_id){
     $this->message->where('from_id',$user_id)->where('to_id',Auth::id())->update(['is_read' => true]);
   }
+
+  public function destroyAllMessages(){
+    $this->message->truncate();
+  }
 }

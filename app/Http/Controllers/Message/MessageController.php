@@ -49,13 +49,6 @@ class MessageController extends Controller
     public function store(Request $request)
     {
         //
-        $message = $this->message->sendMessage($request);
-
-        if($request->receiver_id == 0){
-          $talkmessage = $this->message->getTalkMessage($message);
-          $this->message->postTalkMessage($talkmessage);
-        }
-
         // pusher
         $options = array(
           'cluster' => 'mt1',
@@ -69,8 +62,23 @@ class MessageController extends Controller
           $options
         );
 
+        $message = $this->message->sendMessage($request);
+
         $data = ['from' => Auth::id(), 'to' => $request->receiver_id]; // sending from and to user id when pressed enter
         $pusher->trigger('message-channel', 'sent-message-event', $data);
+
+        if($request->receiver_id == 0){
+
+          $talkmessage = $this->message->getTalkMessage($message);
+          $this->message->postTalkMessage($talkmessage);
+
+          $data = ['from' => 0, 'to' => Auth::id()]; // sending from and to user id when pressed enter
+          $pusher->trigger('message-channel', 'sent-message-event', $data);
+        }
+
+
+
+
     }
 
     /**
@@ -116,5 +124,13 @@ class MessageController extends Controller
     public function destroy(message $message)
     {
         //
+    }
+
+    public function destroyAll(message $message)
+    {
+        //
+        $this->message->destroyAllMessages();
+
+        return redirect('/home');
     }
 }

@@ -142,6 +142,15 @@ $(document).ready(function () {
         scrollToBottomFunc();
       }
     });
+  }); //Sent Message by Button
+
+  $(document).on('click', '.input-text .btn-message', function (e) {
+    var message = $('.input-text input').val();
+
+    if (message != '' && receiver_id != '') {
+      $('.input-text input').val('');
+      sendMessage(message);
+    }
   }); //Sent Message by Enter key
 
   $(document).on('keyup', '.input-text input', function (e) {
@@ -150,26 +159,31 @@ $(document).ready(function () {
     if (e.keyCode == 13 && message != '' && receiver_id != '') {
       //clear message text
       $(this).val('');
-      var datastr = "receiver_id=" + receiver_id + "&message=" + message;
-      $.ajax({
-        type: "post",
-        url: "message",
-        data: datastr,
-        cache: false,
-        success: function success(data) {},
-        error: function error(jqXHR, status, err) {},
-        complete: function complete() {
-          scrollToBottomFunc();
-        }
-      });
+      sendMessage(message);
     }
   }); //make a function to scroll down auto
 
   function scrollToBottomFunc() {
     $('.message-wrapper').animate({
       scrollTop: $('.message-wrapper').get(0).scrollHeight
-    }, 0.001);
+    }, 0.5);
     $('.input-text input').focus();
+  } //send message function
+
+
+  function sendMessage(message) {
+    var datastr = "receiver_id=" + receiver_id + "&message=" + message;
+    $.ajax({
+      type: "post",
+      url: "message",
+      data: datastr,
+      cache: false,
+      success: function success(data) {},
+      error: function error(jqXHR, status, err) {},
+      complete: function complete() {
+        scrollToBottomFunc();
+      }
+    });
   }
 });
 
